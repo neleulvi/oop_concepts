@@ -37,4 +37,6 @@ const student3 = new Student('Nele', 'Ulvi', 33)
 //console.log(student1)
 //console.log(student2)
 //console.log(student3)
+
+//tee nii logi, saad kõik korraga konsooli
 console.log(person1, person2, person3, student1, student2, student3)
