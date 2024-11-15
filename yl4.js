@@ -38,8 +38,77 @@ class Circle extends Shape{ //alamklass extends ülemklass
             return 'Circle (r: ${(this.#radius)}, color: ${(this.#color)})'
         }     
 } 
+class Square extends Shape {
+    #side
+    constructor(color, side){
+        super(color)
+        this.#side = side
+    }
+    getArea (){
+        return this.#side*this.#side
+    }
+    print (){
+        return 'Square (a: {side}, color: {color})'
+    }
+}
+class Rectangle extends Shape {
+    #width
+    #length
+    constructor (color, width, length){
+        super(color)
+        this.#width = width;
+        this.#length = length;
+    }
+    getArea (){
+        return this.#width*this.#length
+    }
+    print (){
+        return 'Rectangle (l: {length}, w: {width}, color: {color})'
+    }
+}
+
+class Paint {
+    constructor(){
+        this.shapes = [];
+    }
+    addShape(shape){
+        if(shape instanceof Shape){
+            //instanceof tagastab true, kui on pandud kas ring, ruut, ristkülik
+            this.shapes.push(shape)
+            
+        }
+    }
+    getShapes(){
+        return this.shapes
+    }
+    calculateTotalArea() {
+        //meetod reduce läbib massiivis kõik shapes elemendid, 0 tähendab, et iteratsioon algab nullist
+        return this.shapes.reduce((total, shape) => total + shape.area (), 0)
+    }
+    getCircles (){
+
+        return this.shapes.filter(shape => shape instanceof Circle)
+    }
+    getRectangles (){
+        return this.shapes.filter(shape => shape instanceof Rectangle)
+    }
+    getSquares (){
+        return this.shapes.filter(shape => shape instanceof Square)
+    }
+}
+
 
 const circle1 = new Circle ('blue', 5)
 console.log(circle1.getArea())
 
+const square1 = new Square ('green', 5)
+console.log(square1.getColor())
+console.log(square1.getArea())
 
+const rectangle1 = new Rectangle ('yellow',5, 6)
+console.log(rectangle1.getColor())
+console.log(rectangle1.getArea())
+
+const paint = new Paint ()
+paint.addShape(new Square (5))
+console.log(paint.getShapes())
