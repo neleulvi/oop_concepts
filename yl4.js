@@ -22,7 +22,7 @@ class Shape {
     }
 }
 const shape1 = new Shape('red')
-console.log(shape1.getColor())//see on functs, kasuta sulge
+//console.log(shape1.getColor())//see on functs, kasuta sulge
 
 class Circle extends Shape{ //alamklass extends ülemklass
     #radius
@@ -35,7 +35,7 @@ class Circle extends Shape{ //alamklass extends ülemklass
             return Math.PI * Math.pow(this.#radius, 2)
         }  
         print(){
-            return 'Circle (r: ${(this.#radius)}, color: ${(this.#color)})'
+            return `Circle (r: ${(this.#radius)}, color: ${(this.getColor())})`
         }     
 } 
 class Square extends Shape {
@@ -48,7 +48,7 @@ class Square extends Shape {
         return this.#side*this.#side
     }
     print (){
-        return 'Square (a: {side}, color: {color})'
+        return `Square (a: ${(this.#side)}, color: ${(this.getColor())})`
     }
 }
 class Rectangle extends Shape {
@@ -63,10 +63,10 @@ class Rectangle extends Shape {
         return this.#width*this.#length
     }
     print (){
-        return 'Rectangle (l: {length}, w: {width}, color: {color})'
+        return `Rectangle (l: ${(this.#length)}, w: ${(this.#width)}, color: ${(this.getColor())})`
     }
 }
-
+ // returnis peavad olema bäktikid 
 class Paint {
     constructor(){
         this.shapes = [];
@@ -82,8 +82,12 @@ class Paint {
         return this.shapes
     }
     calculateTotalArea() {
-        //meetod reduce läbib massiivis kõik shapes elemendid, 0 tähendab, et iteratsioon algab nullist
-        return this.shapes.reduce((total, shape) => total + shape.area (), 0)
+ 
+        this.calculateTotalArea
+        this.shapes.forEach(shape =>{
+            this.totalArea = shape.getArea()
+        })
+        return this.totalArea
     }
     getCircles (){
 
@@ -98,17 +102,33 @@ class Paint {
 }
 
 
-const circle1 = new Circle ('blue', 5)
+const circle = new Circle ('blue', 5)
+console.log(circle.getColor())
+console.log(circle.getArea())
+console.log(circle.print())
+
+const circle1 = new Circle ('pink', 10)
+console.log(circle1.getColor())
 console.log(circle1.getArea())
+console.log(circle1.print())
 
-const square1 = new Square ('green', 5)
-console.log(square1.getColor())
-console.log(square1.getArea())
+const square = new Square ('green', 5)
+console.log(square.getColor())
+console.log(square.getArea())
+console.log(square.print())
 
-const rectangle1 = new Rectangle ('yellow',5, 6)
-console.log(rectangle1.getColor())
-console.log(rectangle1.getArea())
+const rectangle = new Rectangle ('yellow',5, 6)
+console.log(rectangle.getColor())
+console.log(rectangle.getArea())
+console.log(rectangle.print())
 
 const paint = new Paint ()
-paint.addShape(new Square (5))
+paint.addShape(circle)
+paint.addShape(circle1)
+paint.addShape(square)
+paint.addShape(rectangle)
 console.log(paint.getShapes())
+console.log(paint.calculateTotalArea())
+paint.getCircles().forEach(shape => console.log(shape.print()))
+paint.getRectangles().forEach(shape => console.log(shape.print()))
+paint.getSquares().forEach(shape => console.log(shape.print()))
